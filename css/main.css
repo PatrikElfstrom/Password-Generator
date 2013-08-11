@@ -23,12 +23,12 @@ footer {
     text-align: center;
 }
 
-footer a {
+footer a, .simple-social-icons a {
     opacity: 0.3;
     transition: opacity 300ms ease-in-out;
 }
 
-footer a:hover {
+footer a:hover, .simple-social-icons a:hover{
     opacity: 1;
 }
 
