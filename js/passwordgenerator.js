@@ -39,7 +39,7 @@ var passwordGenerator = function(form) {
         letters                 : 'abcdefghjkmnpqrstuvwxyz',
         upperCase               : 'ABCDEFGHJKLMNPQRSTUVWXYZ',
         numbers                 : '23456789',
-        punctuation             : ':;><!"£$%&/()=?^*#_-@+[]{}|,.§',
+        punctuation             : '!"#$%&()*+,-./:;<=>?@[]^_{|}~',
         similarLetters          : 'ilo',
         similarLettersUpperCase : 'IO',
         similarNumbers          : '10'
