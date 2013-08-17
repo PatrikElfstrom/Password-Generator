@@ -28,6 +28,29 @@
             </header>
             <div class="row" role="main">
                 <form id="passwordgenerator" method="GET" class="form-horizontal">
+                
+                    
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="radio" name="passtype" checked="checked" value="password"> Generate a password
+                                    <span class="help-block">E.g. zuBTrRq8</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="radio" name="passtype" value="passphrase"> Generate a passphrase
+                                    <span class="help-block">E.g. correct horse battery staple</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="length" class="col-lg-2 control-label">Password Length</label>
                         <div class="col-lg-10">

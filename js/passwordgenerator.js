@@ -1,3 +1,4 @@
+var wordList;
 jQuery(function() {
     var form = jQuery('#passwordgenerator');
     
@@ -48,14 +49,16 @@ var passwordGenerator = function(form) {
     // Set default options
     var length                      = 8,
         quantity                    = 1,
-        includeLetters,
-        includeUppercase,
-        includeNumbers,
-        includePunctuation,
-        includeSimilarCharacters,
-        excludeCharacters;
+        passType                    = 'password',
+        includeLetters              = true,
+        includeUppercase            = true,
+        includeNumbers              = true,
+        includePunctuation          = true,
+        includeSimilarCharacters    = false,
+        excludeCharacters           = '',
     
     // Get user options
+    passType                    = getFieldValue('passtype');
     length                      = getFieldValue('length');
     includeLetters              = getFieldValue('letters');
     includeUppercase            = getFieldValue('uppercase');
@@ -70,10 +73,42 @@ var passwordGenerator = function(form) {
     jQuery('.generated-password', generatedPasswords).remove();
     
     for(var i = 0; i < quantity; i++) {
-        var password = generatePassword();
+        var pass = '';
+        
+        switch(passType) {
+            case 'passphrase': pass = generatePassphrase(); break;
+            default: 
+            case 'password': pass = generatePassword(); break;
+        }
         
         // Print password
-        jQuery('<li class="list-group-item generated-password"></li>').text(password).hide().appendTo(generatedPasswords).fadeIn('fast');
+        jQuery('<li class="list-group-item generated-password"></li>').text(pass).hide().appendTo(generatedPasswords).fadeIn('fast');
+    }
+    
+    function generatePassphrase() {
+        var passphrase = '';
+        
+        if(wordList === undefined) {
+            loadWordlist();
+        }
+        
+        for(var i = 0; i < length; i++) {
+            var words = wordList.split(/\r\n|\r|\n/);
+            var randomIndex = generateRandomNumber(words.length);
+            var word = words[randomIndex];
+            passphrase += word;
+        }
+        
+        return passphrase;
+    }
+    
+    function loadWordlist() {
+        $.ajax('wordlist.txt', {
+            async: false,
+            success: function(data) {
+                wordList = data;
+            }
+        });
     }
     
     function generatePassword() {
@@ -180,6 +215,10 @@ var passwordGenerator = function(form) {
         // Set to true/false if input field is a checkbox
         if(field.is('[type="checkbox"]')) {
             fieldValue = field.prop('checked');
+        }
+        
+        if(field.is('[type="radio"]')) {
+            fieldValue = field.filter(':checked').val();
         }
         
         return fieldValue;
