@@ -1,4 +1,3 @@
-var wordList;
 jQuery(function() {
     var form = jQuery('#passwordgenerator');
     
@@ -47,7 +46,8 @@ var passwordGenerator = function(form) {
     };
     
     // Set default options
-    var length                      = 8,
+    var passwordLength              = 8,
+        passphraseLength            = 4,
         quantity                    = 1,
         passType                    = 'password',
         includeLetters              = true,
@@ -59,7 +59,7 @@ var passwordGenerator = function(form) {
     
     // Get user options
     passType                    = getFieldValue('passtype');
-    length                      = getFieldValue('length');
+    passwordLength              = getFieldValue('password-length');
     includeLetters              = getFieldValue('letters');
     includeUppercase            = getFieldValue('uppercase');
     includeNumbers              = getFieldValue('numbers');
@@ -67,75 +67,79 @@ var passwordGenerator = function(form) {
     includeSimilarCharacters    = getFieldValue('similar');
     excludeCharacters           = getFieldValue('exclude');
     quantity                    = getFieldValue('quantity');
+    passphraseLength            = getFieldValue('passphrase-length');
     
     // Remove old passwords
     var generatedPasswords = jQuery('#generated-passwords');
     jQuery('.generated-password', generatedPasswords).remove();
     
-    for(var i = 0; i < quantity; i++) {
-        var pass = '';
-        
-        switch(passType) {
-            case 'passphrase': pass = generatePassphrase(); break;
-            default: 
-            case 'password': pass = generatePassword(); break;
-        }
-        
-        // Print password
+    switch(passType) {
+        case 'passphrase': generatePassphrase(); break;
+        default: 
+        case 'password': generatePassword(); break;
+    }
+    
+    function printPass(pass) {
         jQuery('<li class="list-group-item generated-password"></li>').text(pass).hide().appendTo(generatedPasswords).fadeIn('fast');
     }
     
     function generatePassphrase() {
-        var passphrase = '';
-        
-        if(wordList === undefined) {
-            loadWordlist();
-        }
-        
-        for(var i = 0; i < length; i++) {
+        loadWordlist(function(wordList) {
             var words = wordList.split(/\r\n|\r|\n/);
-            var randomIndex = generateRandomNumber(words.length);
-            var word = words[randomIndex];
-            passphrase += word;
-        }
-        
-        return passphrase;
+            var numberOfWords = words.length;
+            
+            for(var q = 0; q < quantity; q++) {
+                var passphrase = '';
+                
+                for(var l = 0; l < passphraseLength; l++) {
+                
+                    var randomIndex = generateRandomNumber(numberOfWords);
+                    var word = words[randomIndex];
+                    
+                    passphrase += word;
+                }
+            
+                printPass(passphrase);
+            }
+        });
     }
     
-    function loadWordlist() {
+    function loadWordlist(callback) {
         $.ajax('wordlist.txt', {
             async: false,
-            success: function(data) {
-                wordList = data;
+            success: function(wordList) {
+                if(callback) { callback(wordList); }
             }
         });
     }
     
     function generatePassword() {
-        var password = '';
-        var availableCharactersExist = checkAvailableCharacters();
-        
-        if((includeLetters || includeUppercase || includeNumbers || includePunctuation) && availableCharactersExist) {
-            for(var i = 0; i < length; i++) {
+        for(var q = 0; q < quantity; q++) {
+            var password = '';
+            var availableCharactersExist = checkAvailableCharacters();
             
-                // Loop until we get a random character. RandomCharacter is false if the user has turned of the character type.
-                var randomCharacter = false;
-                while(randomCharacter === false) {
+            if((includeLetters || includeUppercase || includeNumbers || includePunctuation) && availableCharactersExist) {
+                for(var l = 0; l < passwordLength; l++) {
                 
-                    // Generate a random type of character, letter, number, punctuation etc.
-                    var randomCase = generateRandomNumber(4);
-                    switch(randomCase) {
-                        case 0: randomCharacter = generateRandomCharacter(includeLetters, characterSets.letters, characterSets.similarLetters); break;
-                        case 1: randomCharacter = generateRandomCharacter(includeUppercase, characterSets.upperCase, characterSets.similarLettersUpperCase); break;
-                        case 2: randomCharacter = generateRandomCharacter(includeNumbers, characterSets.numbers, characterSets.similarNumbers); break;
-                        case 3: randomCharacter = generateRandomCharacter(includePunctuation, characterSets.punctuation); break;
+                    // Loop until we get a random character. RandomCharacter is false if the user has turned of the character type.
+                    var randomCharacter = false;
+                    while(randomCharacter === false) {
+                    
+                        // Generate a random type of character, letter, number, punctuation etc.
+                        var randomCase = generateRandomNumber(4);
+                        switch(randomCase) {
+                            case 0: randomCharacter = generateRandomCharacter(includeLetters, characterSets.letters, characterSets.similarLetters); break;
+                            case 1: randomCharacter = generateRandomCharacter(includeUppercase, characterSets.upperCase, characterSets.similarLettersUpperCase); break;
+                            case 2: randomCharacter = generateRandomCharacter(includeNumbers, characterSets.numbers, characterSets.similarNumbers); break;
+                            case 3: randomCharacter = generateRandomCharacter(includePunctuation, characterSets.punctuation); break;
+                        }
                     }
+                    password += randomCharacter;
                 }
-                password += randomCharacter;
             }
+            
+            printPass(password);
         }
-        
-        return password;
     }
     
     function checkAvailableCharacters() {

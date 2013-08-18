@@ -29,105 +29,96 @@
             <div class="row" role="main">
                 <form id="passwordgenerator" method="GET" class="form-horizontal">
                 
-                    
-                    <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="radio" name="passtype" checked="checked" value="password"> Generate a password
-                                    <span class="help-block">E.g. zuBTrRq8</span>
-                                </label>
+                    <!-- Password -->
+                    <div class="password-generator">
+                        <label class="form-group col-lg-10">
+                            <input type="radio" name="passtype" checked="checked" value="password"> Generate a password
+                            <span class="help-block">E.g. zuBTrRq8</span>
+                        </label>
+                        <div class="col-lg-2 options">
+                            <button type="button" class="btn btn-default btn-lg" data-toggle="collapse" data-target="#generate-password-options-container">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </button>
+                        </div>
+                        <div id="generate-password-options-container" class="collapse col-lg-10 col-lg-offset-1 options-container">
+                            <div class="form-group">
+                                <label for="password-length" class="control-label">Password Length</label>
+                                <input type="text" class="form-control" id="password-length" value="8" name="password-length">
+                                <span class="help-block">Length of password(s).</span>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" name="letters"> Include Lower Case Letters
+                                        <span class="help-block">E.g. abcdef</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" name="uppercase"> Include Upper Case Letters
+                                        <span class="help-block">E.g. ABCDEF</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" name="numbers"> Include Numbers
+                                        <span class="help-block">E.g. 234567</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="punctuation"> Include Punctuation
+                                        <span class="help-block">E.g. ;(_>#]</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" name="similar"> Include Similar Characters
+                                        <span class="help-block">E.g. i, l, o, 1, 0, I</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exclude" class="control-label">Exclude</label>
+                                <input type="text" class="form-control" id="exclude" value="" name="exclude">
+                                <span class="help-block">List characters to exclude. E.g. <*^+)</span>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="radio" name="passtype" value="passphrase"> Generate a passphrase
-                                    <span class="help-block">E.g. correct horse battery staple</span>
-                                </label>
+                    
+                    <!-- Passphrase -->
+                    <div class="passphrase-generator">
+                        <label class="form-group col-lg-10">
+                            <input type="radio" name="passtype" value="passphrase"> Generate a passphrase
+                            <span class="help-block">E.g. correct horse battery staple</span>
+                        </label>
+                        <div class="col-lg-2 options">
+                            <button type="button" class="btn btn-default btn-lg" data-toggle="collapse" data-target="#generate-passphrase-options-container">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </button>
+                        </div>
+                        <div id="generate-passphrase-options-container" class="collapse col-lg-10 col-lg-offset-1 options-container">
+                            <div class="form-group">
+                                <label for="passphrase-length" class="control-label">Passphrase Length</label>
+                                <input type="text" class="form-control" id="passphrase-length" value="4" name="passphrase-length">
+                                <span class="help-block">Length of passphrase(s).</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="length" class="col-lg-2 control-label">Password Length</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" id="length" value="8" name="length" size="3">
-                            <span class="help-block">Length of password(s).</span>
-                        </div>
-                    </div>
                     
-                    <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" checked="checked" name="letters"> Include Lower Case Letters
-                                    <span class="help-block">E.g. abcdef</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" checked="checked" name="uppercase"> Include Upper Case Letters
-                                    <span class="help-block">E.g. ABCDEF</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" checked="checked" name="numbers"> Include Numbers
-                                    <span class="help-block">E.g. 234567</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="punctuation"> Include Punctuation
-                                    <span class="help-block">E.g. ;(_>#]</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" checked="checked" name="similar"> Include Similar Characters
-                                    <span class="help-block">E.g. i, l, o, 1, 0, I</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="exclude" class="col-lg-2 control-label">Exclude</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" id="exclude" value="" name="exclude" size="3">
-                            <span class="help-block">List characters to exclude. E.g. <*^+)</span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="quantity" class="col-lg-2 control-label">Quantity</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" id="quantity" value="1" name="quantity" size="3">
-                            <span class="help-block">Number of passwords to generate.</span>
-                        </div>
+                    <div class="form-group col-lg-12">
+                        <label for="quantity" class="control-label">Quantity</label>
+                        <input type="text" class="form-control" id="quantity" value="1" name="quantity">
+                        <span class="help-block">Number of passwords to generate.</span>
                     </div>
                     
                     <div class="form-group">
