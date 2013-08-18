@@ -106,7 +106,6 @@ var passwordGenerator = function(form) {
     
     function loadWordlist(callback) {
         $.ajax('wordlist.txt', {
-            async: false,
             success: function(wordList) {
                 if(callback) { callback(wordList); }
             }
