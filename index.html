@@ -17,7 +17,7 @@
         <meta name="twitter:creator" content="@PatrikElfstrom">
         <meta name="twitter:title" content="Password Generator" />
         <meta name="twitter:url" content="http://passwordgenerator.patrikelfstrom.se" />
-        <link rel="stylesheet" media="all" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" media="all" href="/css/plugin.css">
         <link rel="stylesheet" media="all" href="/css/main.css">
         <link type="text/plain" rel="author" href="/humans.txt" />
     </head>
@@ -111,6 +111,16 @@
                                 <input type="text" class="form-control" id="passphrase-length" value="4" name="passphrase-length">
                                 <span class="help-block">Length of passphrase(s).</span>
                             </div>
+                            <div class="form-group">
+                                <label for="passphrase-word-length" class="control-label">Passphrase Word Length</label>
+                                <div class="ui-slider-wrapper">
+                                    <div id="passphrase-word-length"></div>
+                                    <input type="text" class="form-control" id="passphrase-word-length-min" value="4" name="passphrase-word-length-min">
+                                    <div class="separator">-</div>
+                                    <input type="text" class="form-control" id="passphrase-word-length-max" value="18" name="passphrase-word-length-max">
+                                </div>
+                                <span class="help-block">Length of passphrase words.</span>
+                            </div>
                         </div>
                     </div>
 
@@ -166,7 +176,7 @@
         </div>
         
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/plugin.js"></script>
         <script src="/js/passwordgenerator.js"></script>
         <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-2643871-15', 'patrikelfstrom.se');ga('send', 'pageview');</script>
     </body>

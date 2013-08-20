@@ -13,6 +13,17 @@ jQuery(function() {
     jQuery('#generated-passwords').on('click', 'li', function() {
         selectText(this);
     });
+    
+     $( "#passphrase-word-length" ).slider({
+            range: true,
+            min: 1,
+            max: 18,
+            values: [ 4, 18 ],
+            slide: function( event, ui ) {
+                $( "#passphrase-word-length-min" ).val(ui.values[0]);
+                $( "#passphrase-word-length-max" ).val(ui.values[1]);
+            }
+        });
 });
 
 function selectText(element) {
@@ -48,6 +59,8 @@ var passwordGenerator = function(form) {
     // Set default options
     var passwordLength              = 8,
         passphraseLength            = 4,
+        passphraseWordLengthMin     = 10,
+        passphraseWordLengthMax     = 18,
         quantity                    = 1,
         passType                    = 'password',
         includeLetters              = true,
@@ -68,6 +81,8 @@ var passwordGenerator = function(form) {
     excludeCharacters           = getFieldValue('exclude');
     quantity                    = getFieldValue('quantity');
     passphraseLength            = getFieldValue('passphrase-length');
+    passphraseWordLengthMin     = getFieldValue('passphrase-word-length-min');
+    passphraseWordLengthMax     = getFieldValue('passphrase-word-length-max');
     
     // Remove old passwords
     var generatedPasswords = jQuery('#generated-passwords');
@@ -89,16 +104,26 @@ var passwordGenerator = function(form) {
             var numberOfWords = words.length;
             
             for(var q = 0; q < quantity; q++) {
-                var passphrase = '';
+                var passphrase = [];
                 
                 for(var l = 0; l < passphraseLength; l++) {
-                
-                    var randomIndex = generateRandomNumber(numberOfWords);
-                    var word = words[randomIndex];
+                    var word, wordUnvalid = false;
                     
-                    passphrase += word;
+                    while(wordUnvalid === false) {
+                        var randomIndex = generateRandomNumber(numberOfWords);
+                        word = words[randomIndex];
+                        var wordLength = word.length;
+                        
+                        // if word is the right length quit the while loop.
+                        if(wordLength >= passphraseWordLengthMin && wordLength <= passphraseWordLengthMax) {
+                            wordUnvalid = true;
+                        }
+                    }
+                    
+                    passphrase.push(word);
                 }
             
+                passphrase = passphrase.join(' ');
                 printPass(passphrase);
             }
         });

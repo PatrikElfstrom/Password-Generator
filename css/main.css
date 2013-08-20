@@ -30,6 +30,25 @@
   background-color: #f9f9f9;
 }
 
+.ui-slider-wrapper {
+}
+.ui-slider-wrapper input {
+    width: 15%;
+    text-align: center;
+}
+.ui-slider-wrapper .ui-slider {
+    margin: 0 10px -3px 0;
+    width: 62%;
+}
+.ui-slider-wrapper > *{
+    display: inline-block;
+}
+.ui-slider-wrapper .separator {
+    width: 5px;
+    line-height: 34px;
+    text-align: center;
+}
+
 footer {
     text-align: center;
 }
