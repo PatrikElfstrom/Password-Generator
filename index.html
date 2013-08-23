@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exclude" class="control-label">Exclude</label>
+                                <label for="exclude" class="control-label">Exclude Characters</label>
                                 <input type="text" class="form-control" id="exclude" value="" name="exclude">
                                 <span class="help-block">List characters to exclude. E.g. <*^+)</span>
                             </div>
@@ -112,7 +112,7 @@
                                 <span class="help-block">Length of passphrase(s).</span>
                             </div>
                             <div class="form-group">
-                                <label for="passphrase-word-length" class="control-label">Passphrase Word Length</label>
+                                <label for="passphrase-word-length" class="control-label">Word Length</label>
                                 <div class="ui-slider-wrapper">
                                     <div id="passphrase-word-length"></div>
                                     <input type="text" class="form-control" id="passphrase-word-length-min" value="4" name="passphrase-word-length-min">
@@ -120,6 +120,11 @@
                                     <input type="text" class="form-control" id="passphrase-word-length-max" value="18" name="passphrase-word-length-max">
                                 </div>
                                 <span class="help-block">Length of passphrase words.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="passphrase-exclude" class="control-label">Exclude Words</label>
+                                <input type="text" class="form-control" id="passphrase-exclude" name="passphrase-exclude">
+                                <span class="help-block">List words to exclude. E.g. horse battery staple</span>
                             </div>
                         </div>
                     </div>

@@ -16,7 +16,7 @@ jQuery(function() {
     
      $( "#passphrase-word-length" ).slider({
             range: true,
-            min: 1,
+            min: 2,
             max: 18,
             values: [ 4, 18 ],
             slide: function( event, ui ) {
@@ -69,6 +69,7 @@ var passwordGenerator = function(form) {
         includePunctuation          = true,
         includeSimilarCharacters    = false,
         excludeCharacters           = '',
+        passphraseExcludeWords      = '';
     
     // Get user options
     passType                    = getFieldValue('passtype');
@@ -83,6 +84,7 @@ var passwordGenerator = function(form) {
     passphraseLength            = getFieldValue('passphrase-length');
     passphraseWordLengthMin     = getFieldValue('passphrase-word-length-min');
     passphraseWordLengthMax     = getFieldValue('passphrase-word-length-max');
+    passphraseExcludeWords      = getFieldValue('passphrase-exclude');
     
     // Remove old passwords
     var generatedPasswords = jQuery('#generated-passwords');
@@ -102,21 +104,25 @@ var passwordGenerator = function(form) {
         loadWordlist(function(wordList) {
             var words = wordList.split(/\r\n|\r|\n/);
             var numberOfWords = words.length;
+            var excludeWordsArray = passphraseExcludeWords.split(' ');
             
             for(var q = 0; q < quantity; q++) {
                 var passphrase = [];
                 
                 for(var l = 0; l < passphraseLength; l++) {
-                    var word, wordUnvalid = false;
+                    var word, wordValid = false;
                     
-                    while(wordUnvalid === false) {
+                    while(wordValid === false) {
                         var randomIndex = generateRandomNumber(numberOfWords);
                         word = words[randomIndex];
                         var wordLength = word.length;
                         
-                        // if word is the right length quit the while loop.
+                        // if word is the right length
                         if(wordLength >= passphraseWordLengthMin && wordLength <= passphraseWordLengthMax) {
-                            wordUnvalid = true;
+                            // If the word is not in the exclude word list quit the while loop.
+                            if(jQuery.inArray(word, excludeWordsArray) === -1) {
+                                wordValid = true;
+                            }
                         }
                     }
                     
