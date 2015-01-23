@@ -1,0 +1,21 @@
+# Turn on Expires
+ExpiresActive On
+ExpiresDefault "access plus 1 month"
+Header set Cache-Control "max-age=86400, private, must-revalidate"
+
+# Set 1 month caching
+<FilesMatch "\.(ico|gif|jpg|jpeg|png|flv|pdf|swf|mov|mp3|wmv|ppt)$">
+  Header append Cache-Control "public"
+</FilesMatch>
+
+# Set 1 day caching
+<FilesMatch "\.(js|css)$">
+  ExpiresDefault A2592000
+  Header set Cache-Control "max-age=2592000, private, must-revalidate"
+</FilesMatch>
+
+# Set 1 hour caching
+<FilesMatch "\.(php|html)$">
+  ExpiresDefault A3600
+  Header set Cache-Control "max-age=3600, private, must-revalidate"
+</FilesMatch>

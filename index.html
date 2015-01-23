@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Password Generator</title>
+        <meta charset="utf-8">
+        <meta name="description" content="A secure and powerful password generator.">
+        <meta name="viewport" content="width=device-width">
+        <meta name="author" content="Patrik Elfström" />
+        <meta property="og:title" content="Password Generator"/>
+        <meta property="og:url" content="http://passwordgenerator.patrikelfstrom.se"/>
+        <meta property="og:site_name" content="Password Generator"/>
+        <meta property="og:type" content="portfolio"/>
+        <meta property="og:description" content="A secure and powerful password generator."/>
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@PatrikElfstrom" />
+        <meta name="twitter:description" content="A secure and powerful password generator." />
+        <meta name="twitter:creator" content="@PatrikElfstrom">
+        <meta name="twitter:title" content="Password Generator" />
+        <meta name="twitter:url" content="http://passwordgenerator.patrikelfstrom.se" />
+        <link rel="stylesheet" media="all" href="/css/plugin.css">
+        <link rel="stylesheet" media="all" href="/css/main.css">
+        <link type="text/plain" rel="author" href="/humans.txt" />
+    </head>
+    <body>
+        <div class="container">
+            <header class="page-header" role="banner">
+                <h1 id="dropdowns">Password Generator</h1>
+            </header>
+            <div class="row" role="main">
+                <form id="passwordgenerator" method="GET" class="form-horizontal">
+                
+                    <!-- Password -->
+                    <div class="password-generator">
+                        <label class="form-group col-lg-10">
+                            <input type="radio" name="passtype" checked="checked" value="password"> Generate a password
+                            <span class="help-block">E.g. zuBTrRq8</span>
+                        </label>
+                        <div class="col-lg-2 options">
+                            <button type="button" class="btn btn-default btn-lg" data-toggle="collapse" data-target="#generate-password-options-container">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </button>
+                        </div>
+                        <div id="generate-password-options-container" class="collapse col-lg-10 col-lg-offset-1 options-container">
+                            <div class="form-group">
+                                <label for="password-length" class="control-label">Password Length</label>
+                                <input type="text" class="form-control" id="password-length" value="8" name="password-length">
+                                <span class="help-block">Length of password(s).</span>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" name="letters"> Include Lower Case Letters
+                                        <span class="help-block">E.g. abcdef</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" name="uppercase"> Include Upper Case Letters
+                                        <span class="help-block">E.g. ABCDEF</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" name="numbers"> Include Numbers
+                                        <span class="help-block">E.g. 234567</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="punctuation"> Include Punctuation
+                                        <span class="help-block">E.g. ;(_>#]</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked="checked" name="similar"> Include Similar Characters
+                                        <span class="help-block">E.g. i, l, o, 1, 0, I</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exclude" class="control-label">Exclude Characters</label>
+                                <input type="text" class="form-control" id="exclude" value="" name="exclude">
+                                <span class="help-block">List characters to exclude. E.g. <*^+)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Passphrase -->
+                    <div class="passphrase-generator">
+                        <label class="form-group col-lg-10">
+                            <input type="radio" name="passtype" value="passphrase"> Generate a passphrase
+                            <span class="help-block">E.g. correct horse battery staple</span>
+                        </label>
+                        <div class="col-lg-2 options">
+                            <button type="button" class="btn btn-default btn-lg" data-toggle="collapse" data-target="#generate-passphrase-options-container">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </button>
+                        </div>
+                        <div id="generate-passphrase-options-container" class="collapse col-lg-10 col-lg-offset-1 options-container">
+                            <div class="form-group">
+                                <label for="passphrase-length" class="control-label">Passphrase Length</label>
+                                <input type="text" class="form-control" id="passphrase-length" value="4" name="passphrase-length">
+                                <span class="help-block">Length of passphrase(s).</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="passphrase-word-length" class="control-label">Word Length</label>
+                                <div class="ui-slider-wrapper">
+                                    <div id="passphrase-word-length"></div>
+                                    <input type="text" class="form-control" id="passphrase-word-length-min" value="4" name="passphrase-word-length-min">
+                                    <div class="separator">-</div>
+                                    <input type="text" class="form-control" id="passphrase-word-length-max" value="18" name="passphrase-word-length-max">
+                                </div>
+                                <span class="help-block">Length of passphrase words.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="passphrase-exclude" class="control-label">Exclude Words</label>
+                                <input type="text" class="form-control" id="passphrase-exclude" name="passphrase-exclude">
+                                <span class="help-block">List words to exclude. E.g. horse battery staple</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group col-lg-12">
+                        <label for="quantity" class="control-label">Quantity</label>
+                        <input type="text" class="form-control" id="quantity" value="1" name="quantity">
+                        <span class="help-block">Number of passwords to generate.</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <input type="reset" class="btn btn-warning" value="Reset">
+                            <input type="submit" class="btn btn-primary" value="Generate Password(s)">
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="result">
+                    <h3 class="page-header">Generated Password(s)</h3>
+                    <ul id="generated-passwords" class="list-group list-striped"></ul>
+                </div>
+            </div>
+            
+            <div class="row">
+                <h3 class="page-header">Information</h3>
+                <p>Strong passwords is a must on the Internet today. And luckily there is a lot of good password generators out there.</p>
+                <p>But I was not satisfied with the services that existed. I wanted a fast, secure and dynamic password generator.</p>
+                <p>So I developed this password generator which is built fully in JavaScript and it generates all passwords locally so no passwords are sent over the Internet. 
+                This makes it very fast and secure.</p>
+            </div>
+            
+            <div class="row simple-social-icons">
+                <h3 class="page-header">Share</h3>
+                <p>If you found this service helpful, please share with your friends and family.</p>
+                <ul class="aligncenter">
+                    <li class="social-gplus"><a target="_blank" href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=http%3A%2F%2Fpasswordgenerator.patrikelfstrom.se">&#xf30f;</a></li>
+                    <li class="social-twitter"><a target="_blank" href="http://twitter.com/home?status=Password%20Generator%3A%20http%3A%2F%2Fpasswordgenerator.patrikelfstrom.se">&#xf309;</a></li>
+                    <li class="social-github"><a target="_blank" href="https://github.com/PatrikElfstrom/Password-Generator">&#xf300;</a></li>
+                    <li class="social-facebook"><a target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fpasswordgenerator.patrikelfstrom.se&amp;title=Password%20Generator">&#xf30c;</a></li>
+                </ul>
+            </div>
+            
+            <div class="row">
+                <h3 class="page-header">Contribute</h3>
+                <p>If you got some ideas, found a bug or just want to help out please visit us at <a href="https://github.com/PatrikElfstrom/Password-Generator/issues">GitHub</a>.</p>
+                <p>Or just send an email to <a href="mailto:passwordgenerator@patrikelfstrom.se">passwordgenerator@patrikelfstrom.se</a>.</p>
+            </div>
+            
+            <footer class="row" role="contentinfo">
+                <small><a href="https://patrikelfstrom.se">Patrik Elfström</a></small>
+            </footer>
+        </div>
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="/js/plugin.js"></script>
+        <script src="/js/passwordgenerator.js"></script>
+        <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-2643871-15', 'patrikelfstrom.se');ga('send', 'pageview');</script>
+    </body>
+</html>
